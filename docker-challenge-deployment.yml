@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-challenge-deployment
+  namespace: myapp
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: docker-challenge
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: docker-challenge
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: app
+        image: farzanerahmani/docker-challenge:latest
+        ports:
+        - containerPort: 8090
+       
